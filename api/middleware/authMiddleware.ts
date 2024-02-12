@@ -9,8 +9,6 @@ export default function authenticateToken(req: any, res: Response, next: NextFun
     if (null == token) return res.status(401).json({ status: false, message: "Please login to access information." })
 
     jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
-        console.log('jwt verify err ::', err)
-
         if (err) return res.status(403).json({ status: false, message: "Please login to access information.", error: err })
         req.user = user
         next()

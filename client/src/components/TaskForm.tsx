@@ -106,7 +106,6 @@ export default function TaskForm({
                     }
                 })
             } catch (e: any) {
-                console.log('e', e.response)
                 if (e.response.data.error.name === "TokenExpiredError") {
                     dispatch(logout())
                 }

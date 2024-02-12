@@ -12,7 +12,6 @@ export default function GoogleLogin() {
 
     const handleLogin = async () => {
         const user: any = await signInWithPopup(auth, provider);
-        console.log('user', user);
         if (user.user.emailVerified) {
             const { data } = await callAxios.post('/auth/google', {
                 accessToken: user.user.accessToken,
@@ -21,7 +20,6 @@ export default function GoogleLogin() {
             })
             if (data.token) {
                 dispatch(login({ token: data.token, user: data.user }))
-                console.log('data.token', data.token)
                 localStorage.setItem('token', data.token)
             }
         }

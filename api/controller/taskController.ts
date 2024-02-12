@@ -32,10 +32,8 @@ export default {
             const { id } = req.params
             const body = req.body
             const task = await Task.findByIdAndUpdate(id, body, { new: true })
-            console.log('task', task)
             return res.json({ success: true, task, message: "Task has been updated." }).status(200)
         } catch (err: any) {
-            console.log('err', err)
             return res.json({ success: false, message: "Internal server error", error: err.message }).status(400)
         }
     },
@@ -46,10 +44,8 @@ export default {
             const task = await Task.findById(id).lean()
             if(!task) return res.json({ success: false, message: "Task not found in our database." }).status(200)
             await Task.findByIdAndDelete(id)
-            console.log('task', task)
             return res.json({ success: true, task, message: "Task has been deleted." }).status(200)
         } catch (err: any) {
-            console.log('err', err)
             return res.json({ success: false, message: "Internal server error", error: err.message }).status(400)
         }
     }

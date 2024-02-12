@@ -9,7 +9,6 @@ const firebaseConfig = {
     messagingSenderId: process.env.MESSAGING_SENDER_ID || "61714223217",
     appId: process.env.APP_ID || "1:61714223217:web:01c3fb7a7810f1f7fd8bd0"
 };
-console.log('firebaseConfig', firebaseConfig)
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 export const auth = getAuth(app);
