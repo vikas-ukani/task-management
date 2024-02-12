@@ -89,7 +89,7 @@ export default function TaskForm({
                 }).then(({ data }: any) => {
                     if (data.success) {
                         handleResetForm()
-                        setTasks([data.tasks, ...tasks])
+                        setTasks([data.task, ...tasks])
                         Swal.fire({
                             title: 'Success',
                             text: data.message,

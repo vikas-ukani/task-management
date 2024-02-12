@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import GoogleLogin from './GoogleLogin';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '@/store/slice/authSlice';
 
 export default function Header() {
+    const dispatch = useDispatch()
     const [show, setShow] = useState(false);
-    const [token, setToken] = useState('')
+    const { token, user } = useSelector((state: any) => state.auth)
 
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            setToken(localStorage.getItem('token') || '')
-        }
-
-    }, [])
-
+    const handleLogout = () => {
+        dispatch(logout())
+    }
 
     return (
         <div className=" bg-[#fffaf2] w-full border-b shadow-[0_1px_14px_rgba(0,0,0,0.07)] top-0 z-20">
@@ -24,9 +23,19 @@ export default function Header() {
                         </svg>
                         <h1 className=" font-normal text-2xl leading-6 text-gray-800">Task Manager</h1>
                     </div>
-                    <div className="hidden sm:flex flex-row space-x-4">
-                        <GoogleLogin />
-                    </div>
+                    {token ? (
+                        <div className='flex space-x-2 items-center gap-2'>
+                            <div>Hello, <span className='text-blue-500'>{user.name}</span></div>
+                            <button type='button' onClick={handleLogout} className='px-4 py-1 border border-red-500 hover:bg-red-500 hover:text-white rounded-md text-red-500 hover:shadow-2xl duration-300'>
+                                Logout
+                                </button>
+                        </div>
+                    ) : (
+                        <div className="hidden sm:flex flex-row space-x-4">
+                            <GoogleLogin />
+                        </div>
+                    )}
+
                     {/* Burger Icon */}
                     <div id="bgIcon" onClick={() => setShow(!show)} className={`h-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800  justify-center items-center sm:hidden cursor-pointer`}>
                         <svg className={`${show ? 'hidden' : ''}`} width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +55,7 @@ export default function Header() {
                         <GoogleLogin />
                     </div>
                 </div>
-            </nav>
-        </div>
+            </nav >
+        </div >
     )
 }
