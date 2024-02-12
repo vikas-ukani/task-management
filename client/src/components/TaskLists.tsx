@@ -65,7 +65,10 @@ export default function TaskLists({
         <div className='mt-10'>
             <p className='text-3xl font-bold '>All Tasks</p>
             <div className="w-full flex-1 gap-4 items-center" >
-                {tasks?.map((task: ITaskDoc) => (
+                {tasks && tasks.length == 0 && 
+                <p className='text-xl w-full text-center font-semibold mt-4 text-gray-800 border-black rounded-lg shadow-2xl py-8 border'>No Tasks available. Please create new tasks</p>
+                }
+                {tasks && tasks.length > 0 && tasks?.map((task: ITaskDoc) => (
                     <div key={task._id} className='w-full p-4 border border-black  rounded-md shadow-lg my-4 text-base font-medium leading-none text-gray-800'>
                         <div className='font-bold text-black w-full flex items-center justify-between gap-6'>
                             <div className='flex items-center gap-4'>
