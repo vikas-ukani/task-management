@@ -3,24 +3,27 @@ import { Request, Response } from "express"
 import Task from "../models/taskModel"
 
 export default {
-    getAll: async (req: Request, res: Response) => {
+    getAll: async (req: any, res: Response) => {
         try {
-            const tasks: ITask[] = await Task.find({}).sort({ createdAt: -1 })
-            return res.json({ tasks, message: "All tasks retrieved." }).status(200)
+            const tasks: ITask[] = await Task.find({userId: req.user._id}).sort({ createdAt: -1 })
+            return res.json({ status: true, tasks, message: "All tasks retrieved." }).status(200)
         } catch (error: any) {
-            return res.json({ message: "Internal server error", error: error.message }).status(400)
+            return res.json({ status: false, message: "Internal server error", error: error.message }).status(400)
         }
     },
-    createTask: async (req: Request, res: Response) => {
+    createTask: async (req: any, res: Response) => {
         try {
             const body = req.body
+            console.log('req.user', req.user)
+            if (!req.user) return res.json({ success: false, message: 'Please login to save the task.' })
 
-            const task = new Task({ ...body })
+            console.log('Data', { ...body, userId: req.user._id})
+            const task = new Task({ ...body, userId: req.user._id})
             const newTask: ITask = await task.save()
 
-            return res.json({ data: newTask, message: "Task has been created." }).status(201)
+            return res.json({ success: true, task: newTask, message: "Task has been created." }).status(201)
         } catch (error: any) {
-            return res.json({ message: "Internal server error", error: error.message }).status(400)
+            return res.json({ success: false, message: "Internal server error", error: error.message }).status(400)
         }
     }
 }

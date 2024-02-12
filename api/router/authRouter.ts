@@ -4,4 +4,7 @@ import authController from '../controller/authController';
 
 const router = Router()
 
-router.post('/{social}', authController.socialAuth)
+router.post('/:social', authController.socialAuth)
+
+
+export default router
