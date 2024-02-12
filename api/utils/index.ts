@@ -6,5 +6,5 @@ export enum Status {
 }
 
 export function generateAccessToken(user: { _id: string, name: string, email: string }) {
-    return jwt.sign(user, process.env.JWT_SECRET as string, { expiresIn: '1800s' });
+    return jwt.sign(user, process.env.JWT_SECRET as string, { expiresIn: '30d' });
 }
