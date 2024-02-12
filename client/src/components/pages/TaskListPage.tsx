@@ -1,9 +1,7 @@
 
 
 import React, { useEffect, useState } from 'react'
-import TaskForm from '../TaskForm'
-import callAxios from '@/pages/lib/callAxios'
-import TaskLists from '../TaskLists'
+import callAxios from '@/lib/callAxios'
 import GoogleLogin from '../GoogleLogin'
 import { useSelector } from 'react-redux'
 import FormWithTaskList from '../FormWithTaskList'
@@ -23,22 +21,21 @@ export default function TaskListPage() {
         const fetchTasks = async () => {
             try {
                 setErrorMessage('')
-                const { data, status } = await callAxios.get('/tasks', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
+                await callAxios.get('/tasks', {
+                    headers: { Authorization: `Bearer ${token}` }
+                }).then(({data}: any) => {
+                    if (data.status) {
+                        setTasks(data.tasks)
+                    } else {
+                        setTasks([])
                     }
                 })
-                if (status === 200) {
-                    setTasks(data.tasks)
-                } else {
-                    setTasks([])
-                }
             } catch (e: any) {
                 setErrorMessage(e.response.data.message)
             }
         }
         fetchTasks()
-    }, [])
+    }, [token])
 
 
     return <>

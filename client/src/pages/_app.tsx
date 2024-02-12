@@ -1,7 +1,7 @@
 import React from "react";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import BaseLayout from "./components/layouts/BaseLayout";
+import BaseLayout from "@/components/layouts/BaseLayout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return <BaseLayout>

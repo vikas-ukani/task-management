@@ -12,7 +12,7 @@ export default function BaseLayout({ children }: {
     <Provider store={store}>
         <PersistGate loading={null} persistor={persister}>
         <Header />
-        <div className=' bg-[#f5efe6] min-h-screen w-screen sm:py-8 sm:px-8 py-8 px-8'>
+        <div className=' bg-[#f5efe6] min-h-screen w-full sm:py-8 sm:px-8 py-8 px-8'>
             <div className='max-w-6xl mx-auto'>
                 {children}
             </div>

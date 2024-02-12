@@ -23,7 +23,7 @@ export default function FormWithTaskList({
                 updateId={updateId} setUpdateId={setUpdateId}
                 tasks={tasks} setTasks={setTasks}
             />
-            <TaskLists tasks={tasks} setForm={setForm} setUpdateId={setUpdateId} />
+            <TaskLists tasks={tasks} setTasks={setTasks} setForm={setForm} setUpdateId={setUpdateId} />
         </>
     )
 }
